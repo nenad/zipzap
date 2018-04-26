@@ -1,0 +1,14 @@
+{
+    "displays": [
+        {"uri": "https://google.com", "displayTime": 20000},
+        {"uri": "https://reddit.com", "displayTime": 10000}
+    ],
+    "requestEnhancement": [
+        {
+            "patterns": ["https://time.com/*"],
+            "headers": {
+                "Authorization": "Bearer <token>"
+            }
+        }
+    ]
+}
