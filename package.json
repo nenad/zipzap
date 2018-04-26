@@ -1,0 +1,21 @@
+{
+  "name": "zipzap",
+  "version": "0.0.1",
+  "description": "Customizable Electron dashboard made for TV+RPi combo",
+  "main": "main.js",
+  "scripts": {
+    "start": "TMPDIR=/tmp electron ."
+  },
+  "keywords": [
+    "dashboard",
+    "raspberrypi"
+  ],
+  "author": "Nenad Stojanovikj",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "jsonschema": "^1.2.0"
+  },
+  "devDependencies": {
+    "electron": "^1.8.5"
+  }
+}
