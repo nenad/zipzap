@@ -7,7 +7,9 @@ export default class DashboardState {
   private currentDashboard?: IDashboard;
 
   constructor(dashboards: IDashboard[]) {
-    // TODO: Handle 0 size array (error)
+    if (dashboards.length === 0) {
+      throw new Error("You must have at least one dashboard.");
+    }
     this.dashboards = dashboards;
     this.currentDashboard = dashboards[this.currentIndex];
   }
