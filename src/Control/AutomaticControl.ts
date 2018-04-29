@@ -9,13 +9,13 @@ export default class AutomaticControl {
   }
 
   public Play() {
-    var self = this;
+    const self = this;
 
     this.state.NextDashboard.Preload();
     this.state.CurrentDashboard.Show();
     this.timeout = setTimeout(
       () => self.Forward(),
-      self.state.CurrentDashboard.Duration()
+      self.state.CurrentDashboard.Duration(),
     );
   }
 

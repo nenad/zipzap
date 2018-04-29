@@ -8,12 +8,12 @@ interface IDashboard {
   /**
    * The callback is called when Preload finishes for the first time
    */
-  OnceReady(callback: Function): void;
+  OnceReady(callback: () => void): void;
 
   /**
    * The callback is called when Preload finishes
    */
-  OnReady(callback: Function): void;
+  OnReady(callback: () => void): void;
 
   /**
    * Show displays the dashboard

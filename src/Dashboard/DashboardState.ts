@@ -1,7 +1,4 @@
 export default class DashboardState {
-  Start(): any {
-    throw new Error("Method not implemented.");
-  }
   private dashboards: IDashboard[];
   private currentIndex = 0;
   private currentDashboard?: IDashboard;

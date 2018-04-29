@@ -1,21 +1,16 @@
-import Configuration from "./Configuration/Configuration";
-import DashboardState from "./Dashboard/DashboardState";
-import AutomaticControl from "./Control/AutomaticControl";
 import { BrowserWindow } from "electron";
 import { format } from "url";
+import Configuration from "./Configuration/Configuration";
+import AutomaticControl from "./Control/AutomaticControl";
+import DashboardState from "./Dashboard/DashboardState";
 
 export default class Main {
-  static control: AutomaticControl;
-  static state: DashboardState;
+  public static control: AutomaticControl;
+  public static state: DashboardState;
   private static configuration: Configuration;
   private static application: Electron.App;
 
-  constructor(
-    app: Electron.App,
-    state: DashboardState,
-    control: AutomaticControl,
-    config: Configuration
-  ) {
+  constructor(app: Electron.App, state: DashboardState, control: AutomaticControl, config: Configuration) {
     Main.application = app;
     Main.configuration = config;
     Main.state = state;
@@ -23,13 +18,13 @@ export default class Main {
   }
 
   public Initialize() {
-    var self = this;
+    const self = this;
     Main.application.on("ready", () => self.onReady());
   }
 
   private onReady() {
     // Display index file until first dashboard is ready
-    var indexWindow = this.loadIndex();
+    const indexWindow = this.loadIndex();
     indexWindow.show();
 
     // Start loading first dashboard
@@ -41,13 +36,13 @@ export default class Main {
   }
 
   private loadIndex(): BrowserWindow {
-    var indexWindow = new BrowserWindow({ fullscreen: true });
+    const indexWindow = new BrowserWindow({ fullscreen: true });
     indexWindow.loadURL(
       format({
         pathname: process.cwd() + "/assets/index.html",
         protocol: "file",
-        slashes: true
-      })
+        slashes: true,
+      }),
     );
     return indexWindow;
   }

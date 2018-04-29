@@ -1,51 +1,50 @@
+import { LoadURLOptions } from "electron";
 import { readFileSync } from "fs";
+import { format } from "path";
 import URLDashboard from "../Dashboard/URLDashboard";
 
-export enum DashboardType {
+enum DashboardType {
   Page = "page",
   Stream = "stream",
-  Video = "video"
+  Video = "video",
 }
 
-export class ConfigItem {
-  type!: DashboardType;
-  uri!: string;
-  duration!: number;
-  options?: string[];
+class ConfigItem {
+  public type!: DashboardType;
+  public uri!: string;
+  public duration!: number;
+  public options?: LoadURLOptions;
 }
 
 export default class Configuration {
-  readonly Dashboards!: IDashboard[];
-  readonly IsCECEnabled!: boolean;
-  readonly IsHTTPEnabled!: boolean;
+
+  public static LoadFromFile(filePath: string): Configuration {
+    // JSON Schema validation?
+    const contents = readFileSync(filePath);
+    const config = JSON.parse(contents.toString());
+    const dashboards: IDashboard[] = [];
+
+    config.dashboards.forEach((item: ConfigItem) => {
+      switch (item.type) {
+        case DashboardType.Page: {
+          dashboards.push(new URLDashboard(item.uri, item.duration, item.options));
+          break;
+        }
+        default:
+          throw new Error("Unrecognized type: " + item.type);
+      }
+    });
+
+    return new Configuration(dashboards, false, false);
+  }
+
+  public readonly Dashboards!: IDashboard[];
+  public readonly IsCECEnabled!: boolean;
+  public readonly IsHTTPEnabled!: boolean;
 
   constructor(dashboards: IDashboard[], cec: boolean, http: boolean) {
     this.Dashboards = dashboards;
     this.IsCECEnabled = cec;
     this.IsHTTPEnabled = http;
-  }
-
-  static LoadFromFile(filePath: string): Configuration {
-    var contents = readFileSync(filePath);
-    // JSON Schema validation?
-    var config = JSON.parse(contents.toString());
-
-    var dashboards: IDashboard[];
-    dashboards = [];
-    config.dashboards.forEach((configItem: ConfigItem) => {
-      var dashboard: IDashboard;
-      switch (configItem.type) {
-        case DashboardType.Page: {
-          dashboard = new URLDashboard(configItem.uri, configItem.duration);
-          break;
-        }
-        default: {
-          dashboard = new URLDashboard("about:blank", 10000);
-        }
-      }
-      dashboards.push(dashboard);
-    });
-
-    return new Configuration(dashboards, false, false);
   }
 }
