@@ -1,14 +1,21 @@
 {
-    "displays": [
-        {"uri": "https://google.com", "displayTime": 20000},
-        {"uri": "https://reddit.com", "displayTime": 10000}
-    ],
-    "requestEnhancement": [
+    "dashboards": [
         {
-            "patterns": ["https://time.com/*"],
+            "uri": "https://grafana.tools.test.io/dashboard/",
+            "duration": 6000
+        },
+        {
+            "uri": "https://grafana.tools.test.io/dashboard2",
+            "duration": 10000
+        }
+    ],
+    "requestEnhancements": [
+        {
+            "patterns": ["https://grafana.tools.test.io/*"],
             "headers": {
-                "Authorization": "Bearer <token>"
+                "Authorization": "Bearer iambeareroftoken"
             }
         }
     ]
 }
+
