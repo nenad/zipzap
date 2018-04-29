@@ -1,7 +1,8 @@
-import "path";
 import Configuration from "./Configuration/Configuration";
 import DashboardState from "./Dashboard/DashboardState";
 import AutomaticControl from "./Control/AutomaticControl";
+import { BrowserWindow } from "electron";
+import { format } from "url";
 
 export default class Main {
   static control: AutomaticControl;
@@ -22,14 +23,32 @@ export default class Main {
   }
 
   public Initialize() {
-    Main.application.on("ready", this.onReady);
-    //TODO Handle all windows closed
+    var self = this;
+    Main.application.on("ready", () => self.onReady());
   }
 
   private onReady() {
+    // Display index file until first dashboard is ready
+    var indexWindow = this.loadIndex();
+    indexWindow.show();
+
+    // Start loading first dashboard
     Main.state.CurrentDashboard.Preload();
     Main.state.CurrentDashboard.OnceReady(() => {
       Main.control.Play();
+      indexWindow.destroy();
     });
+  }
+
+  private loadIndex(): BrowserWindow {
+    var indexWindow = new BrowserWindow({ fullscreen: true });
+    indexWindow.loadURL(
+      format({
+        pathname: process.cwd() + "/assets/index.html",
+        protocol: "file",
+        slashes: true
+      })
+    );
+    return indexWindow;
   }
 }
