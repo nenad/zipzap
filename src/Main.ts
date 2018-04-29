@@ -31,7 +31,7 @@ export default class Main {
     Main.state.CurrentDashboard.Preload();
     Main.state.CurrentDashboard.OnceReady(() => {
       Main.control.AutoPlay();
-      indexWindow.hide();
+      indexWindow.destroy();
     });
   }
 
