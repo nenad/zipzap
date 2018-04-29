@@ -11,6 +11,11 @@ export default class DashboardState {
     this.currentDashboard = dashboards[this.currentIndex];
   }
 
+  public JumpTo(num: number) {
+    this.currentIndex = num;
+    this.currentDashboard! = this.dashboards[this.currentIndex];
+  }
+
   public ChangeNext() {
     this.currentIndex = this.nextIndex;
     this.currentDashboard! = this.NextDashboard;
