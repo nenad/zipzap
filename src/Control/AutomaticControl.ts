@@ -2,20 +2,20 @@ import DashboardState from "../Dashboard/DashboardState";
 
 export default class AutomaticControl {
   private timeout?: NodeJS.Timer;
-  private coordinator: DashboardState;
+  private state: DashboardState;
 
-  constructor(coordinator: DashboardState) {
-    this.coordinator = coordinator;
+  constructor(state: DashboardState) {
+    this.state = state;
   }
 
   public Play() {
     var self = this;
 
-    this.coordinator.NextDashboard.Preload();
-    this.coordinator.CurrentDashboard.Show();
+    this.state.NextDashboard.Preload();
+    this.state.CurrentDashboard.Show();
     this.timeout = setTimeout(
       () => self.Forward(),
-      self.coordinator.CurrentDashboard.Duration()
+      self.state.CurrentDashboard.Duration()
     );
   }
 
@@ -24,8 +24,8 @@ export default class AutomaticControl {
   }
 
   public Forward() {
-    this.coordinator.CurrentDashboard.Hide();
-    this.coordinator.ChangeNext();
+    this.state.CurrentDashboard.Hide();
+    this.state.ChangeNext();
     this.Play();
   }
 }
