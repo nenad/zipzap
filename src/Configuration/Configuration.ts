@@ -6,6 +6,7 @@ enum DashboardType {
   Page = "page",
   Stream = "stream",
   Video = "video",
+  HTML = "html",
 }
 
 interface IConfiguration {
@@ -34,9 +35,12 @@ export default class Configuration {
 
     config.dashboards.forEach((item: IDashboardConfig) => {
       switch (item.type) {
+        case DashboardType.HTML:
+          dashboards.push(new URLDashboard(item.uri, item.duration, true, item.options));
+          break;
         case DashboardType.Page:
         default:
-          dashboards.push(new URLDashboard(item.uri, item.duration, item.options));
+          dashboards.push(new URLDashboard(item.uri, item.duration, false, item.options));
           break;
       }
     });
