@@ -9,12 +9,19 @@
     "compile": "./node_modules/.bin/tsc",
     "lint": "./node_modules/.bin/tslint"
   },
-  "keywords": ["dashboard", "raspberrypi"],
+  "keywords": [
+    "dashboard",
+    "raspberrypi"
+  ],
   "author": "Nenad Stojanovikj",
+  "dependencies": {
+    "tmp": "0.0.33"
+  },
   "license": "CC0-1.0",
   "devDependencies": {
     "@types/node": "^9.0.0",
-    "electron": "^1.8.6",
+    "@types/tmp": "0.0.33",
+    "electron": "^2.0.0",
     "tslint": "^5.9.1",
     "typescript": "^2.8.3"
   }
